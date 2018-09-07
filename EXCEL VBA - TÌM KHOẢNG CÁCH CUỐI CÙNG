@@ -1,0 +1,13 @@
+
+EXCEL VBA - TÌM KHOẢNG CÁCH CUỐI CÙNG
+
+Public Function SEARCH_LAST_SPACE(DLieu As String) As Integer
+    Dim i As Integer
+    Dim LAST_SPACE_INDEX As Integer
+    For i = 1 To Len(DLieu)
+        If Mid(DLieu, i, 1) = " " Then
+            LAST_SPACE_INDEX = i
+        End If
+    Next
+    SEARCH_LAST_SPACE = LAST_SPACE_INDEX
+End Function
