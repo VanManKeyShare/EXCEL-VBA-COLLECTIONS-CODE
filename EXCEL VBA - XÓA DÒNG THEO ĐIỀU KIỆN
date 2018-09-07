@@ -1,0 +1,62 @@
+
+	EXCEL VBA - XÓA DÒNG THEO ĐIỀU KIỆN
+
+	Function CollecToArray(c As Collection) As Variant()
+		Dim a() As Variant: ReDim a(0 To c.Count - 1)
+		Dim i As Integer
+		For i = 1 To c.Count
+			a(i - 1) = c.Item(i)
+		Next
+		CollecToArray = a
+	End Function
+
+	Sub Xoa_Row_Theo_Dieu_Kien()
+
+		Dim Collec As Collection
+		Set Collec = New Collection
+
+		If MsgBox("ARE YOU SURE ?" & vbCrLf & vbCrLf & "     THIS ACTION CAN'T UNDO", vbYesNo, "Thông báo") <> vbYes Then
+			Exit Sub
+		End If
+
+		If Selection.Rows.Count <= 0 Then Exit Sub
+
+		Dim Mode As String
+		Mode = InputBox("Please Choose Mode" & vbCrLf & vbCrLf & "Mode 1 = DELETE ROW IF CELL NOT EQUALS" & vbCrLf & vbCrLf & "Mode 2 = DELETE ROW IF CELL EQUALS" & vbCrLf, "Thông báo", "")
+		If Trim(Mode) <> "1" And Trim(Mode) <> "2" Then Exit Sub
+
+		Dim Value_DEL As String
+		Value_DEL = InputBox("PLEASE ENTER VALUE", "Thông báo", "")
+		If Trim(Value_DEL) = "" Then Exit Sub
+
+		Dim zRange As Range, zCell As Range
+		Dim zCell_Begin As String: zCell_Begin = ""
+
+		Set zRange = Selection
+
+		For Each zCell In zRange
+			If zCell_Begin = "" Then zCell_Begin = zCell.Address
+			If Trim(zCell.Value) <> "" Then
+				If Mode = "1" And UCase(Trim(zCell.Value)) <> UCase(Trim(Value_DEL)) Then
+					Collec.Add zCell.Row
+				End If
+				If Mode = "2" And UCase(Trim(zCell.Value)) = UCase(Trim(Value_DEL)) Then
+					Collec.Add zCell.Row
+				End If
+			End If
+		Next zCell
+
+		''' REMOVE ROW IN COLLECTION '''
+
+		If Collec.Count <> 0 Then
+			Dim Row_Pending_Remove() As Variant
+			Row_Pending_Remove = CollecToArray(Collec)
+			Dim i As Integer
+			For i = UBound(Row_Pending_Remove) To LBound(Row_Pending_Remove) Step -1
+				Rows(Row_Pending_Remove(i)).EntireRow.Delete
+			Next i
+		End If
+
+		ActiveSheet.Range(zCell_Begin).Select
+
+	End Sub
