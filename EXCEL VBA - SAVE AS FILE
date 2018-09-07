@@ -1,0 +1,12 @@
+
+EXCEL VBA - SAVE AS FILE
+
+    Dim KqSaveAs As Variant
+    KqSaveAs = Application.GetSaveAsFilename( _
+        FileFilter:="Excel Files, *.xls;*.xlsx", _
+        Title:="Save As", _
+        InitialFileName:=CurDir _
+    )
+    If KqSaveAs <> False Then
+        MsgBox KqSaveAs
+    End If
