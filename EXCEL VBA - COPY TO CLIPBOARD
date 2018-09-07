@@ -1,0 +1,14 @@
+
+EXCEL VBA - COPY TO CLIPBOARD
+
+Public Function Copy_To_ClipBoard(sClipDATA As String) As Boolean
+    Dim MSForms_DATA_OBJ As Object
+    On Error GoTo ErrorHandler_
+    Set MSForms_DATA_OBJ = CreateObject("new:{1C3B4210-F441-11CE-B9EA-00AA006B1A69}")
+    MSForms_DATA_OBJ.SetText sClipDATA
+    MSForms_DATA_OBJ.PutInClipboard
+    Copy_To_ClipBoard = True
+Exit Function
+ErrorHandler_:
+    Copy_To_ClipBoard = False
+End Function
