@@ -1,0 +1,21 @@
+
+EXCEL VBA - IMPORT DATA FROM CLIPBOARD TO LISTBOX
+
+Lst_Ds_Data_In_Clipboard.Clear
+
+Dim Extract_Data() As String
+Dim obClipBoard As Object
+Dim LngCounTer As Long
+Dim i As Integer
+
+Set obClipBoard = CreateObject("new:{1C3B4210-F441-11CE-B9EA-00AA006B1A69}")
+obClipBoard.GetFromClipboard
+
+For LngCounTer = 1 To UBound(Application.ClipboardFormats)
+	If Application.ClipboardFormats(LngCounTer) = xlClipboardFormatText Then
+		Extract_Data() = Split(Trim(obClipBoard.GetText(LngCounTer)), vbCrLf)
+		For i = 0 To UBound(Extract_Data)
+			Lst_Ds_Data_In_Clipboard.AddItem Trim(Extract_Data(i))
+		Next i
+	End If
+Next LngCounTer
