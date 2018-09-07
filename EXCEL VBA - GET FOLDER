@@ -1,0 +1,18 @@
+
+EXCEL VBA - GET FOLDER
+
+Public Function GET_FOLDER(STR_PATH As String) As String
+    Dim FLDR As FileDialog
+    Dim SITEM As String
+    Set FLDR = Application.FileDialog(msoFileDialogFolderPicker)
+    With FLDR
+        .Title = "Please Choose Folder"
+        .AllowMultiSelect = False
+        .InitialFileName = STR_PATH
+        If .Show <> -1 Then GoTo NEXT_CODE
+        SITEM = .SelectedItems(1)
+    End With
+NEXT_CODE:
+    GET_FOLDER = SITEM
+    Set FLDR = Nothing
+End Function
