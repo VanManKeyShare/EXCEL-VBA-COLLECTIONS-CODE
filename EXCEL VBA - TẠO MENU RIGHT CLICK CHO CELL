@@ -1,0 +1,57 @@
+
+	EXCEL VBA - TẠO MENU RIGHT CLICK CHO CELL
+
+	+ TẠO MODULE
+
+		Option Explicit
+
+		Const COT_MAHS = 9
+		Const ROW_BEGIN = 3
+		Const ROW_END = 10000
+		Const NAME_SHEET_HSHS = "HSHS"
+
+		Private Sub Show_Form_Chuyen_Di()
+			If UCase(Selection.Worksheet.Name) = UCase(NAME_SHEET_HSHS) Then
+				If Selection.Count = 1 Then
+					If Selection.Column = COT_MAHS Then
+						If Selection.Row >= ROW_BEGIN And Selection.Row <= ROW_END Then
+							Dim Cell As Range
+							Dim Ma_Hs_From_Cell As String
+							Set Cell = Selection
+							Ma_Hs_From_Cell = Trim(Cell.Value)
+							If Ma_Hs_From_Cell <> "" Then
+								MsgBox Ma_Hs_From_Cell
+							End If
+						End If
+					End If
+				End If
+			End If
+		End Sub
+
+		Private Sub Build_Menu_Chuyen_Di_Click()
+			Dim I As Integer
+			Dim BTN As CommandBarControl
+			Dim CbConTrol As CommandBarControl
+			Set CbConTrol = Application.CommandBars("Cell").Controls.Add(Type:=msoControlButton, Before:=1)
+			CbConTrol.Tag = "M111411"
+			CbConTrol.Caption = "Chuy" & ChrW(7875) & "n " & ChrW(273) & "i - Ch" & ChrW(7885) & "n M" & ChrW(227) & " h" & ChrW(7885) & "c sinh"
+			CbConTrol.OnAction = "Show_Form_Chuyen_Di"
+		End Sub
+
+		Private Sub Xoa_Menu_Chuyen_Di_Click()
+			Dim CbConTrol As CommandBarControl
+			For Each CbConTrol In Application.CommandBars("Cell").Controls
+				If CbConTrol.Tag = "M111411" Then CbConTrol.Delete
+			Next
+		End Sub
+
+	+ THÊM LỆNH VÀO ThisWorkbook
+
+		Private Sub Workbook_BeforeClose(Cancel As Boolean)
+			Run ("Xoa_Menu_Chuyen_Di_Click")
+		End Sub
+
+		Private Sub Workbook_SheetBeforeRightClick(ByVal Sh As Object, ByVal Target As Range, Cancel As Boolean)
+			Run ("Xoa_Menu_Chuyen_Di_Click")
+			Run ("Build_Menu_Chuyen_Di_Click")
+		End Sub
