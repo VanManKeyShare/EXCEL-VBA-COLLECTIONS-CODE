@@ -1,0 +1,13 @@
+EXCEL VBA - TÌM SHEET TRONG WORKBOOK
+
+Public Function ManMan89_Find_SHEET(NameSHEET As String) As Boolean
+    On Error Resume Next
+    Dim WS
+    ManMan89_Find_SHEET = False
+    For Each WS In Worksheets
+        If LCase(Trim(NameSHEET)) = LCase(Trim(WS.Name)) Then
+            ManMan89_Find_SHEET = True
+            Exit Function
+        End If
+    Next WS
+End Function
