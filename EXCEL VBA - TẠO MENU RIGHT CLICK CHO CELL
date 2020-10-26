@@ -55,3 +55,4 @@
 			Run ("Xoa_Menu_Chuyen_Di_Click")
 			Run ("Build_Menu_Chuyen_Di_Click")
 		End Sub
+
