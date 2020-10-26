@@ -2,3 +2,4 @@
 EXCEL LỆNH TÁCH HỌ VÀ TÊN
 
 =RIGHT(A1,LEN(A1)-FIND("*",SUBSTITUTE(A1," ","*",LEN(A1)-LEN(SUBSTITUTE(A1," ","")))))
+
