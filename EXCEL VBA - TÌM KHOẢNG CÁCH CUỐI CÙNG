@@ -11,3 +11,4 @@ Public Function SEARCH_LAST_SPACE(DLieu As String) As Integer
     Next
     SEARCH_LAST_SPACE = LAST_SPACE_INDEX
 End Function
+
