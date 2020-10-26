@@ -12,3 +12,4 @@ Exit Function
 ErrorHandler_:
     Copy_To_ClipBoard = False
 End Function
+
