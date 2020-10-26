@@ -19,3 +19,4 @@ For LngCounTer = 1 To UBound(Application.ClipboardFormats)
 		Next i
 	End If
 Next LngCounTer
+
